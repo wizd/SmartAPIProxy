@@ -1,9 +1,29 @@
+const fs = require("fs");
+const path = require("path");
+const https = require("https");
+const dotenv = require("dotenv");
+
 const express = require("express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
-require("dotenv").config();
+dotenv.config();
 
 const app = express();
+const pfxPath = process.env.PFX_PATH;
+const normalizedCertFilePath = path.normalize(pfxPath);
+const pfxPassphrase = process.env.PFX_PASSPHRASE;
+const credentials = {
+  pfx: fs.readFileSync(normalizedCertFilePath),
+  passphrase: pfxPassphrase
+};
+
+let server;
+if (process.env.NODE_ENV === "production") {
+  server = https.createServer(credentials, app);
+} else {
+  server = require("http").createServer(app);
+}
+
 // 使用 express.json() 中间件解析 JSON 请求体
 app.use(express.json());
 
@@ -112,6 +132,8 @@ function processResponseBody(responseBody) {
 }
 
 app.use(proxyMiddleware);
-app.listen(3001, () => {
-  console.log("Proxy server is running on port 3001");
+
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
