@@ -35,7 +35,7 @@ SmartAPIProxy 是一个基于 Node.js 的反向代理服务器，用于处理和
 
 ## 最后
 
-SmartAPIProxy 是一个功能强大的反向代理服务器，可以轻松地在客户端和 API 服务器之间进行数据处理。它具有良好的扩展性，可以根据项目需求进行进一步开发和优化。
+SmartAPIProxy 是一个功能强大的反向代理服务器，可以轻松地在客户端和 API 服务器之间进行数据处理。它具有良好的扩展性，可以根据项目需求进行进一步开发和优化。(By ChatGPT-4)
 
 # SmartAPIProxy
 
@@ -74,5 +74,5 @@ When deploying SmartAPIProxy, ensure that the target environment has the correct
 
 ## Conclusion
 
-SmartAPIProxy is a powerful reverse proxy server that easily processes data between clients and API servers. It has good scalability and can be further developed and optimized according to project requirements.
+SmartAPIProxy is a powerful reverse proxy server that easily processes data between clients and API servers. It has good scalability and can be further developed and optimized according to project requirements. (By ChatGPT-4)
 
