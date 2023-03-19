@@ -3,6 +3,8 @@ const path = require("path");
 const https = require("https");
 const dotenv = require("dotenv");
 
+const velistAPI = require("./src/api/velist");
+
 const express = require("express");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 
@@ -137,6 +139,8 @@ function processResponseBody(responseBody) {
 }
 
 app.use(proxyMiddleware);
+
+app.use("/vc/v1/ve/list", velistAPI);
 
 // 根目录中间件，返回特定网页或者重定向到其他页面
 app.use("/", (req, res, next) => {
