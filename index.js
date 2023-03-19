@@ -100,9 +100,14 @@ const proxyMiddleware = createProxyMiddleware({
       });
 
       proxyRes.on("end", () => {
-        const modifiedData = processResponseBody(JSON.parse(data));
-        res.setHeader("Content-Type", "application/json");
-        res.send(JSON.stringify(modifiedData));
+        try {
+          const modifiedData = processResponseBody(JSON.parse(data));
+          res.setHeader("Content-Type", "application/json");
+          res.send(JSON.stringify(modifiedData));
+        } catch (e) {
+          console.log("Error parsing JSON on end:", data);
+          res.send(data);
+        }
       });
     }
   }
