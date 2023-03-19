@@ -17,15 +17,6 @@ const credentials = {
   passphrase: pfxPassphrase
 };
 
-// 根目录中间件，返回特定网页或者重定向到其他页面
-app.use("/", (req, res, next) => {
-  // 重定向到其他页面
-  res.redirect(process.env.REDIRECT_TO);
-
-  // 返回特定网页
-  //res.send("<html><body><h1>Welcome to my website!</h1></body></html>");
-});
-
 let server;
 if (process.env.NODE_ENV === "production") {
   server = https.createServer(credentials, app);
@@ -141,6 +132,15 @@ function processResponseBody(responseBody) {
 }
 
 app.use(proxyMiddleware);
+
+// 根目录中间件，返回特定网页或者重定向到其他页面
+app.use("/", (req, res, next) => {
+  // 重定向到其他页面
+  res.redirect(process.env.REDIRECT_TO);
+
+  // 返回特定网页
+  //res.send("<html><body><h1>Welcome to my website!</h1></body></html>");
+});
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
