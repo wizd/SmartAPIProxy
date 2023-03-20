@@ -146,10 +146,11 @@ app.use("/v1", proxyMiddleware);
 // 根目录中间件，返回特定网页或者重定向到其他页面
 app.use("/", (req, res, next) => {
   // 重定向到其他页面
-  res.redirect(process.env.REDIRECT_TO);
+  console.log("request", req.url);
+  //res.redirect(process.env.REDIRECT_TO);
 
   // 返回特定网页
-  //res.send("<html><body><h1>Welcome to my website!</h1></body></html>");
+  res.send("<html><body><h1>Welcome to my website!</h1></body></html>");
 });
 
 const PORT = process.env.PORT || 3001;
