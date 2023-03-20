@@ -26,6 +26,8 @@ if (process.env.NODE_ENV === "production") {
   server = require("http").createServer(app);
 }
 
+app.use("/vc/v1/ve/list", velistAPI);
+
 // 使用 express.json() 中间件解析 JSON 请求体
 app.use(express.json());
 
@@ -38,6 +40,7 @@ const proxyMiddleware = createProxyMiddleware({
     const authHeader = req.headers.authorization;
     const newAuthHeader = processAuthHeader(authHeader);
     proxyReq.setHeader("Authorization", newAuthHeader);
+    proxyReq.setHeader("Connection", "keep-alive");
 
     // 获取、修改并设置JSON请求体
     const body = req.body;
@@ -138,9 +141,7 @@ function processResponseBody(responseBody) {
   return responseBody;
 }
 
-app.use(proxyMiddleware);
-
-app.use("/vc/v1/ve/list", velistAPI);
+app.use("/v1", proxyMiddleware);
 
 // 根目录中间件，返回特定网页或者重定向到其他页面
 app.use("/", (req, res, next) => {
